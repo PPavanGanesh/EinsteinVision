@@ -1,42 +1,113 @@
-## 3D Traffic Scene Blender Visualization
-This project provides a comprehensive pipeline for 3D visualization of traffic scenes using Blender and Python. It processes detection and tracking results (vehicles, lanes, road marks, speed bumps, speed limit signs, etc.) from JSON files and renders them in a photorealistic Blender environment.
+# 🚗 Einstein Vision: A Safer Autonomy – Tesla-Inspired 3D Traffic Scene Visualization
 
-## Project code Structure
-3D_RoadMarks.py – Renders road markings in 3D using Blender.
+This project presents a Tesla-style visualization pipeline that bridges deep learning-based perception with intuitive 3D rendering using Blender. Designed to aid human understanding and trust in autonomous systems, the pipeline detects and interprets real-world traffic scenarios and visualizes them from the ego-vehicle's perspective.
 
-3D_Speed_breaker.py – Handles 3D placement and rendering of speed bumps.
+> 🔗 [📹 Pitch Video](https://drive.google.com/drive/folders/1iuleoQ68BJFc04H3BPSZ7smhzd8b1pa6?usp=sharing)
 
-3d_speed_limit_detect.py – Detects and saves speed limit sign data as JSON.
+---
 
-3D_SpeedBump.py – Loads and renders speed bump models in Blender.
+## 📌 Features
 
-3D_Traffic_Detection.py – Main code for 3D object (vehicle, pedestrian, traffic light, etc.) placement and orientation.
+### ✅ **Phase 1: Basic Perception**
 
-3DLane_Detection.py – Visualizes detected lane lines in 3D.
+* Lane detection & classification (traditional + Mask R-CNN)
+* Vehicle & pedestrian detection (YOLOv8x)
+* Traffic light and road sign recognition
+* Depth-based 3D projections of all entities
 
-this_detection_never_ends.py – The main orchestrator: loads all detection JSONs, manages Blender rendering, and integrates all scene elements.
+### 🚧 **Phase 2: Advanced Enhancements**
 
-video.py – (If present) Handles video input/output or post-processing.
+* Depth estimation using MiDaS
+* Fine-grained vehicle classification & orientation
+* Road markings: arrows, pedestrian crossings, speed signs
+* Pedestrian pose estimation in 3D
+* Detection of urban furniture (poles, cones, cylinders)
 
-## Repository Structure
-YourDirectoryID_p3.zip
-├── Code/ # Implementation scripts and modules
-├── Videos/ # Processed visualization outputs
-│ ├── OutputVisualizationVideoSeq1.mp4
-│ ├── ...
-│ └── OutputVisualizationVideoSeq13.mp4
-├── Report.pdf # Technical documentation
-├── ProductPitchVideo.mp4 # Local copy of pitch video
-└── README.md # This documentation
+### 🧠 **Phase 3: Cognitive Abilities**
 
-## Key Resources
-- **Pitch Video**: [Google Drive Link](https://drive.google.com/drive/folders/1iuleoQ68BJFc04H3BPSZ7smhzd8b1pa6?usp=sharing)
-- **Report**: See `Report.pdf` for technical specifications and implementation details
-- **Visualizations**: Sample outputs in `Videos/` directory
+* Brake light and indicator detection
+* Parked vs. moving vehicle classification (RAFT + optical flow)
+* **Extra Credit**:
 
+  * Speed bump detection (custom YOLOv8x)
+  * Collision prediction & risk visualization
 
-## Usage
-1. **Code Execution**: Run main scripts from `Code/` directory
-2. **Output Generation**: Processed videos are in  `Videos/`
+---
 
+## 📂 Repository Structure
 
+```
+YourDirectoryID_p3/
+├── Code/                          # Implementation scripts and visualization logic
+│   ├── 3DLane_Detection.py        # Renders lane geometry in 3D
+│   ├── 3D_Traffic_Detection.py    # Renders vehicles, pedestrians, lights, etc.
+│   ├── 3D_RoadMarks.py            # Visualizes arrows, crossings, etc.
+│   ├── 3D_Speed_breaker.py        # Speed bump visualization
+│   ├── 3d_speed_limit_detect.py   # Speed limit detection and JSON export
+│   ├── this_detection_never_ends.py  # Main orchestrator – integrates and renders all components
+│   └── video.py                   # Video generation (if included)
+├── Videos/                        # Final rendered Blender videos
+│   ├── OutputVisualizationVideoSeq1.mp4
+│   └── ...
+├── Report.pdf                     # Technical documentation
+├── ProductPitchVideo.mp4         # Local video pitch
+└── README.md                     # This file
+```
+
+---
+
+## 📷 Sample Outputs
+
+Visualizations include:
+
+* 3D ego-vehicle view of the traffic scene
+* Annotated elements: moving/parked vehicles, brake lights, traffic arrows, pedestrian poses
+* Danger zones: collision predictions (highlighted in red)
+* Real-time signal interpretations
+
+---
+
+## 🛠 How to Run
+
+1. **Ensure Blender is installed (≥ v3.0)**
+2. Place all JSON detection outputs in the designated input directory
+3. Run the master script:
+
+   ```bash
+   blender --background --python this_detection_never_ends.py
+   ```
+4. Output MP4 videos will be saved in the `Videos/` folder.
+
+---
+
+## 📑 Technical Highlights
+
+* **YOLOv8x**: for object, vehicle, pedestrian, and road sign detection
+* **Mask R-CNN**: for lane and road marking segmentation
+* **MiDaS**: transformer-based monocular depth estimation
+* **Blender API**: for importing, animating, and rendering scene objects
+* **Optical Flow (RAFT)**: for vehicle movement classification
+
+---
+
+## ❗ Known Limitations
+
+* Less robust under extreme lighting or weather conditions
+* Depth estimation accuracy decreases with distance
+* Pose rendering glitches in Blender due to keyframe/armature issues
+
+---
+
+## 🔮 Future Improvements
+
+* Sensor fusion with LiDAR for better depth perception
+* Improved pose rendering engine
+* Real-time implementation with ROS2 pipeline
+* Automated Blender rendering dashboard for batch processing
+
+---
+
+## 👨‍💻 Authors
+
+* **Pavan Ganesh Pabbineedi** – [ppabbineedi@wpi.edu](mailto:ppabbineedi@wpi.edu)
+* **Manideep Duggi** – [mduggi@wpi.edu](mailto:mduggi@wpi.edu)
